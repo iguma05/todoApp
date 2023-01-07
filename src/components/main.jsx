@@ -1,11 +1,11 @@
 import { Footer } from './footer';
 import { TodoList } from './todoList';
 
-export function Main({content}) {
+export function Main({ content }) {
 	// console.log(props);
 	return (
 		<section className='main'>
-			<TodoList {...content} />
+			<TodoList todos={content} />
 			<Footer />
 		</section>
 	);

@@ -6,9 +6,9 @@ import { Main } from './components/main';
 
 function App() {
 	const data = [
-		{ text: 'Completed task' },
-		{ text: 'Editing task' },
-		{ text: 'Active task' },
+		{ text: 'Completed task', id: 1 },
+		{ text: 'Editing task', id: 2 },
+		{ text: 'Active task', id: 3 },
 	];
 
 	return (

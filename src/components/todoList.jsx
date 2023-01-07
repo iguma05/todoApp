@@ -1,17 +1,15 @@
-import { View } from './view';
+import { TodoListItem } from './todoListItem';
 
-export function TodoList(props) {
-	console.log(props);
-	return (
-		<ul className='todo-list'>
-			{Object.values(props).map((item) => {
-				// <li className='completed'>
-				return (
-					<li>
-						<View {...item} />
-					</li>
-				);
-			})}
-		</ul>
-	);
+export function TodoList({ todos }) {
+	// console.log(todos);
+	const elements = todos.map((item) => {
+		return (
+			<li key={item.id}>
+				<TodoListItem text={item.text} />
+			</li>
+		);
+
+		//
+	});
+	return <ul className='todo-list'>{elements}</ul>;
 }
