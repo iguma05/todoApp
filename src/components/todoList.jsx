@@ -1,13 +1,14 @@
 import { View } from './view';
 
-export function TodoList({ text }) {
+export function TodoList(props) {
+	console.log(props);
 	return (
 		<ul className='todo-list'>
-			{text.props.map((item) => {
+			{Object.values(props).map((item) => {
 				// <li className='completed'>
 				return (
 					<li>
-						<View text={item} />
+						<View {...item} />
 					</li>
 				);
 			})}

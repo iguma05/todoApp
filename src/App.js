@@ -5,13 +5,16 @@ import { Header } from './components/header';
 import { Main } from './components/main';
 
 function App() {
-	const data = ['Completed task', 'Editing task', 'Active task'];
+	const data = [
+		{ text: 'Completed task' },
+		{ text: 'Editing task' },
+		{ text: 'Active task' },
+	];
 
-  
 	return (
 		<section className='todoapp'>
 			<Header />
-			<Main props={data} />
+			<Main content={data} />
 		</section>
 	);
 }
