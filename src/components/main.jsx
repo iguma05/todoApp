@@ -1,11 +1,12 @@
 import { Footer } from './footer';
 import { TodoList } from './todoList';
 
-export function Main() {
+export function Main(props) {
+	
 	return (
-		<div className='main'>
-			<TodoList />
+		<section className='main'>
+			<TodoList text={props} />
 			<Footer />
-		</div>
+		</section>
 	);
 }

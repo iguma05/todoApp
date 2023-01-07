@@ -5,11 +5,14 @@ import { Header } from './components/header';
 import { Main } from './components/main';
 
 function App() {
+	const data = ['Completed task', 'Editing task', 'Active task'];
+
+  
 	return (
-		<div className='todoapp'>
+		<section className='todoapp'>
 			<Header />
-			<Main />
-		</div>
+			<Main props={data} />
+		</section>
 	);
 }
 
