@@ -2,28 +2,29 @@ import React from 'react';
 
 export class TodoListItem extends React.Component {
 	state = {
-		checked: false,
+		edit: false,
 	};
 	editItem = () => {
-		console.log(1);
-	};
-	isDone = () => {
-		this.setState(({ checked }) => {
-			return { checked: !checked };
+		this.setState(({ edit }) => {
+			return { edit: !edit };
 		});
 	};
+	// isDone = () => {
+	// 	this.setState(({ done }) => {
+	// 		return { done: !done };
+	// 	});
+	// };
 
 	render() {
-		const { text, onDeleted } = this.props;
-		const { checked } = this.state;
+		const { done, text, onDeleted, onDone } = this.props;
+		const { edit } = this.state;
 		let classes = '';
-		if (checked) {
-			classes = ' completed';
-		}
+		if (done) classes = 'completed';
+		if (edit) classes = 'editing';
 		return (
 			<li className={classes}>
 				<div className='view'>
-					<input className='toggle' type='checkbox' onChange={this.isDone} />
+					<input className='toggle' type='checkbox' onChange={onDone} />
 					<label>
 						<span className='description'>{text}</span>
 						{/* <span className='created'>created 17 seconds ago</span> */}
@@ -31,6 +32,7 @@ export class TodoListItem extends React.Component {
 					<button className='icon icon-edit' onClick={this.editItem}></button>
 					<button className='icon icon-destroy' onClick={onDeleted}></button>
 				</div>
+				{/* <input type='text' className='edit' value={text}></input> */}
 			</li>
 		);
 	}
