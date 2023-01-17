@@ -16,20 +16,22 @@ export class TodoListItem extends React.Component {
 	render() {
 		const { text, onDeleted } = this.props;
 		const { checked } = this.state;
-		let classes = 'description';
+		let classes = '';
 		if (checked) {
-			classes += ' completed';
+			classes = ' completed';
 		}
 		return (
-			<div className='view'>
-				<input className='toggle' type='checkbox' onChange={this.isDone} />
-				<label>
-					<span className={classes}>{text}</span>
-					{/* <span className='created'>created 17 seconds ago</span> */}
-				</label>
-				<button className='icon icon-edit' onClick={this.editItem}></button>
-				<button className='icon icon-destroy' onClick={onDeleted}></button>
-			</div>
+			<li className={classes}>
+				<div className='view'>
+					<input className='toggle' type='checkbox' onChange={this.isDone} />
+					<label>
+						<span className='description'>{text}</span>
+						{/* <span className='created'>created 17 seconds ago</span> */}
+					</label>
+					<button className='icon icon-edit' onClick={this.editItem}></button>
+					<button className='icon icon-destroy' onClick={onDeleted}></button>
+				</div>
+			</li>
 		);
 	}
 }
