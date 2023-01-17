@@ -9,11 +9,6 @@ export class TodoListItem extends React.Component {
 			return { edit: !edit };
 		});
 	};
-	// isDone = () => {
-	// 	this.setState(({ done }) => {
-	// 		return { done: !done };
-	// 	});
-	// };
 
 	render() {
 		const { done, text, onDeleted, onDone } = this.props;
