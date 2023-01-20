@@ -1,24 +1,31 @@
 import React from 'react';
+import { ButtonFilter } from './buttonFilter';
 
 export class Footer extends React.Component {
-
-	
 	render() {
+		const { counter, clearCompleted, filteredTodo, buttons, onClicked } =
+			this.props;
+
+		const elements = buttons.map((button) => {
+			const { id, value, clicked } = button;
+			return (
+				<ButtonFilter
+					key={id}
+					value={value}
+					clicked={clicked}
+					onClicked={() => onClicked(id)}
+					filteredTodo={() => filteredTodo(id)}
+				/>
+			);
+		});
+
 		return (
 			<footer className='footer'>
-				<span className='todo-count'>1 items left</span>
-				<ul className='filters'>
-					<li>
-						<button className='selected'>All</button>
-					</li>
-					<li>
-						<button>Active</button>
-					</li>
-					<li>
-						<button>Completed</button>
-					</li>
-				</ul>
-				<button className='clear-completed'>Clear completed</button>
+				<span className='todo-count'>{counter} items left</span>
+				<ul className='filters'>{elements}</ul>
+				<button className='clear-completed' onClick={clearCompleted}>
+					Clear completed
+				</button>
 			</footer>
 		);
 	}
