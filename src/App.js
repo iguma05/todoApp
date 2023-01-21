@@ -10,9 +10,9 @@ class App extends React.Component {
 	maxId = 100;
 	state = {
 		data: [
-			this.createItem('Completed task'),
-			this.createItem('Editing task'),
 			this.createItem('Active task'),
+			this.createItem('Editing task'),
+			this.createItem('Completed task'),
 		],
 		buttons: [
 			{ id: 1, value: 'All', clicked: true },
@@ -69,8 +69,8 @@ class App extends React.Component {
 		this.setState(({ buttons }) => {
 			const newBtns = buttons.map((button) => {
 				if (button.id === id) {
-					return {...button, clicked: true };
-				} else return {...button, clicked: false };
+					return { ...button, clicked: true };
+				} else return { ...button, clicked: false };
 			});
 			return { buttons: newBtns };
 		});

@@ -15,10 +15,12 @@ export class Header extends React.Component {
 		const { addItem } = this.props;
 		const createTodoItem = (event) => {
 			if (event.key === 'Enter') {
-				addItem(this.state.text);
-				this.setState(() => {
-					return { text: '' };
-				});
+				if (event.target.value) {
+					addItem(this.state.text);
+					this.setState(() => {
+						return { text: '' };
+					});
+				}
 			}
 		};
 		return (

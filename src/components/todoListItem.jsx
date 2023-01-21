@@ -29,7 +29,7 @@ export class TodoListItem extends React.Component {
 						checked={checked}
 					/>
 					<label>
-						<span className='description' onClick={onDone}>{text}</span>
+						{text && <span className='description' onClick={onDone}>{text}</span>}
 						{/* <span className='created'>created 17 seconds ago</span> */}
 					</label>
 					<button className='icon icon-edit' onClick={editItem}></button>
