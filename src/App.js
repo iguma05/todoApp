@@ -10,9 +10,9 @@ class App extends React.Component {
 	maxId = 100;
 	state = {
 		data: [
-			this.createItem('Active task'),
-			this.createItem('Editing task'),
 			this.createItem('Completed task'),
+			this.createItem('Editing task'),
+			this.createItem('Active task'),
 		],
 		buttons: [
 			{ id: 1, value: 'All', clicked: true },
@@ -28,8 +28,10 @@ class App extends React.Component {
 			done: false,
 			id: this.maxId++,
 			edit: false,
+			date: new Date(),
 		};
 	}
+
 	deleteItem = (id) => {
 		this.setState(({ data }) => {
 			const newData = data.filter((item) => item.id !== id);

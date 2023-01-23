@@ -1,5 +1,6 @@
 import React from 'react';
 import { TodoListItem } from './todoListItem';
+import PropTypes from 'prop-types';
 
 export function TodoList({
 	todos,
@@ -18,22 +19,30 @@ export function TodoList({
 		filteredToDo = todos.filter((todo) => todo.done);
 	}
 
-	const elements = filteredToDo
-		.map((todo) => {
-			const { id, done, text, edit } = todo;
-			return (
-				<TodoListItem
-					key={id}
-					done={done}
-					text={text}
-					edit={edit}
-					onDone={() => onDone(id)}
-					onDeleted={() => onDeleted(id)}
-					editItem={() => editItem(id)}
-					saveChanges={(event) => saveChanges(id, event)}
-				/>
-			);
-		})
-		.reverse();
+	const elements = filteredToDo.map((todo) => {
+		const { id } = todo;
+		return (
+			<TodoListItem
+				key={id}
+				{...todo}
+				onDone={() => onDone(id)}
+				onDeleted={() => onDeleted(id)}
+				editItem={() => editItem(id)}
+				saveChanges={(event) => saveChanges(id, event)}
+			/>
+		);
+	});
 	return <ul className='todo-list'>{elements}</ul>;
 }
+
+TodoList.defaultProps = {
+	btnFilter: 1,
+};
+TodoList.propTypes = {
+	todos: PropTypes.arrayOf(PropTypes.object).isRequired,
+	onDone: PropTypes.func.isRequired,
+	onDeleted: PropTypes.func.isRequired,
+	saveChanges: PropTypes.func.isRequired,
+	editItem: PropTypes.func.isRequired,
+	btnFilter: PropTypes.number,
+};
