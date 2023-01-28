@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 import { formatDistanceToNow } from 'date-fns/esm';
 import React from 'react';
 import PropTypes from 'prop-types';

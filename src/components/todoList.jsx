@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+/* eslint-disable import/order*/
 import React from 'react';
 import { TodoListItem } from './todoListItem';
 import PropTypes from 'prop-types';

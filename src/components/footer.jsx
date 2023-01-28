@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+/* eslint-disable import/order*/
 import React from 'react';
 import { ButtonFilter } from './buttonFilter';
 import PropTypes from 'prop-types';
