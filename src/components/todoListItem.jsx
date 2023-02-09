@@ -49,11 +49,18 @@ export class TodoListItem extends React.Component {
           <input className="toggle" type="checkbox" onChange={onDone} checked={checked} />
           <label>
             {text && (
-              <span className="description" onClick={onDone}>
-                {text}
-              </span>
+              <>
+                <span className="title" onClick={onDone}>
+                  {text}
+                </span>
+                <span className="description">
+                  <button className="icon icon-play"></button>
+                  <button className="icon icon-pause"></button>
+                  12:25
+                </span>
+              </>
             )}
-            <span className="created">{`created ${timeCreated}`}</span>
+            <span className="description">{`created ${timeCreated}`}</span>
           </label>
           <button className="icon icon-edit" onClick={editItem}></button>
           <button className="icon icon-destroy" onClick={onDeleted}></button>
