@@ -50,13 +50,9 @@ export class TodoListItem extends React.Component {
       addSuffix: true,
     });
     let minutes = Math.floor(this.state.timer / 60);
-    console.log(this.state.timer / 60);
     let seconds = this.state.timer % 60;
     if (minutes < 10) {
       minutes = '0' + minutes;
-    }
-    if (minutes < 1) {
-      minutes = '00';
     }
     if (seconds < 10) {
       seconds = '0' + seconds;
