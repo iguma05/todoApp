@@ -10,7 +10,11 @@ import { TodoList } from './components/todoList';
 class App extends React.Component {
   maxId = 100;
   state = {
-    data: [this.createItem('Completed task'), this.createItem('Editing task'), this.createItem('Active task')],
+    data: [
+      this.createItem('Completed task', 0, 0),
+      this.createItem('Editing task', 0, 0),
+      this.createItem('Active task', 0, 0),
+    ],
     buttons: [
       { id: 1, value: 'All', clicked: true },
       { id: 2, value: 'Active', clicked: false },
@@ -19,13 +23,14 @@ class App extends React.Component {
     btnFilter: 1,
   };
 
-  createItem(text) {
+  createItem(text, minutes, seconds) {
     return {
       text,
       done: false,
       id: this.maxId++,
       edit: false,
       date: new Date(),
+      time: Number(minutes) * 60 + Number(seconds),
     };
   }
 
@@ -36,8 +41,8 @@ class App extends React.Component {
     });
   };
 
-  addItem = (text) => {
-    const newItem = this.createItem(text);
+  addItem = (text, minutes, seconds) => {
+    const newItem = this.createItem(text, minutes, seconds);
     this.setState(({ data }) => {
       const newData = [...data, newItem];
       return { data: newData };

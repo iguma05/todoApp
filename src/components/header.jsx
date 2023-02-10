@@ -8,6 +8,8 @@ export class Header extends React.Component {
   };
   state = {
     text: '',
+    minutes: null,
+    seconds: null,
   };
 
   changeText = (event) => {
@@ -15,15 +17,26 @@ export class Header extends React.Component {
       return { text: event.target.value };
     });
   };
+  changeMinutes = (event) => {
+    this.setState(() => {
+      return { minutes: event.target.value };
+    });
+  };
+  changeSeconds = (event) => {
+    this.setState(() => {
+      return { seconds: event.target.value };
+    });
+  };
 
   render() {
     const { addItem } = this.props;
     const createTodoItem = (event) => {
+      const { text, minutes, seconds } = this.state;
       if (event.key === 'Enter') {
         if (event.target.value) {
-          addItem(this.state.text);
+          addItem(text, minutes, seconds);
           this.setState(() => {
-            return { text: '' };
+            return { text: '', minutes: '', seconds: '' };
           });
         }
       }
@@ -40,8 +53,22 @@ export class Header extends React.Component {
             onChange={this.changeText}
             onKeyDown={createTodoItem}
           />
-          <input className="new-todo-form__timer" placeholder="Min" autoFocus />
-          <input className="new-todo-form__timer" placeholder="Sec" autoFocus />
+          <input
+            className="new-todo-form__timer"
+            placeholder="Min"
+            autoFocus
+            value={this.state.minutes}
+            onChange={this.changeMinutes}
+            onKeyDown={createTodoItem}
+          />
+          <input
+            className="new-todo-form__timer"
+            placeholder="Sec"
+            autoFocus
+            value={this.state.seconds}
+            onChange={this.changeSeconds}
+            onKeyDown={createTodoItem}
+          />
         </form>
       </header>
     );
