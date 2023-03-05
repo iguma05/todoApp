@@ -1,136 +1,120 @@
 /* eslint-disable semi */
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import { v4 } from 'uuid';
 
 import './components/stylesAll.css';
 import { Header } from './components/header';
 import { Footer } from './components/footer';
 import { TodoList } from './components/todoList';
 
-class App extends React.Component {
-  maxId = 100;
-  state = {
-    data: [
-      this.createItem('Completed task', 0, 0),
-      this.createItem('Editing task', 0, 0),
-      this.createItem('Active task', 0, 0),
-    ],
-    buttons: [
-      { id: 1, value: 'All', clicked: true },
-      { id: 2, value: 'Active', clicked: false },
-      { id: 3, value: 'Completed', clicked: false },
-    ],
-    btnFilter: 1,
-  };
-
-  createItem(text, minutes, seconds) {
+function App() {
+  const createItem = (text, minutes, seconds) => {
     return {
       text,
       done: false,
-      id: this.maxId++,
+      id: v4(),
       edit: false,
       date: new Date(),
       time: Number(minutes) * 60 + Number(seconds),
     };
-  }
+  };
+  const [data, setData] = useState([
+    createItem('Completed task', 0, 0),
+    createItem('Editing task', 0, 0),
+    createItem('Active task', 0, 0),
+  ]);
+  const [buttons, setButtons] = useState([
+    { id: 1, value: 'All', clicked: true },
+    { id: 2, value: 'Active', clicked: false },
+    { id: 3, value: 'Completed', clicked: false },
+  ]);
+  const [btnFilter, setBtnFilter] = useState(1);
 
-  deleteItem = (id) => {
-    this.setState(({ data }) => {
-      const newData = data.filter((item) => item.id !== id);
-      return { data: newData };
-    });
+  const deleteItem = (id) => {
+    setData(() => data.filter((item) => item.id !== id));
   };
 
-  addItem = (text, minutes, seconds) => {
-    const newItem = this.createItem(text, minutes, seconds);
-    this.setState(({ data }) => {
-      const newData = [...data, newItem];
-      return { data: newData };
-    });
+  const addItem = (text, minutes, seconds) => {
+    const newItem = createItem(text, minutes, seconds);
+    setData([...data, newItem]);
   };
-  onDone = (id) => {
-    this.setState(({ data }) => {
+  const onDone = (id) => {
+    setData(() => {
       const index = data.findIndex((el) => el.id === id);
-
       const oldItem = data[index];
       const newItem = { ...oldItem, done: !oldItem.done };
-
       const newData = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
-      return { data: newData };
+      return newData;
     });
   };
-  clearCompleted = () => {
-    this.setState(({ data }) => {
-      const newData = data.filter((item) => !item.done);
-      return { data: newData };
-    });
+  const clearCompleted = () => {
+    setData(() => data.filter((item) => !item.done));
   };
-  onClicked = (id) => {
-    this.setState(({ buttons }) => {
+  const onClicked = (id) => {
+    setButtons(() => {
       const newBtns = buttons.map((button) => {
         if (button.id === id) {
           return { ...button, clicked: true };
         } else return { ...button, clicked: false };
       });
-      return { buttons: newBtns };
+      return newBtns;
     });
   };
-  filteredTodo = (id) => {
-    this.setState({ btnFilter: id });
-    this.onClicked(id);
+  const filteredTodo = (id) => {
+    setBtnFilter(id);
+    onClicked(id);
   };
 
-  editItem = (id) => {
-    this.setState(({ data }) => {
+  const editItem = (id) => {
+    setData(() => {
       const newData = data.map((todo) => {
         if (todo.id === id) {
           return { ...todo, edit: true };
         } else return { ...todo };
       });
-      return { data: newData };
+      return newData;
     });
   };
 
-  saveChanges = (id, event) => {
+  const saveChanges = (id, event) => {
     if (event.key === 'Enter') {
-      this.setState(({ data }) => {
+      setData(() => {
         const newData = data.map((todo) => {
           if (todo.id === id) {
             return { ...todo, edit: false, text: event.target.value };
           } else return { ...todo };
         });
-        return { data: newData };
+        return newData;
       });
     }
   };
 
-  render() {
-    const toDoCount = this.state.data.filter((el) => !el.done).length;
+  const toDoCount = data.filter((el) => !el.done).length;
 
-    return (
-      <section className="todoapp">
-        <Header addItem={this.addItem} />
-        <section className="main">
-          <TodoList
-            todos={this.state.data}
-            edit={this.state.data.edit}
-            onDone={this.onDone}
-            onDeleted={this.deleteItem}
-            saveChanges={this.saveChanges}
-            editItem={this.editItem}
-            btnFilter={this.state.btnFilter}
-          />
-          <Footer
-            counter={toDoCount}
-            buttons={this.state.buttons}
-            clearCompleted={this.clearCompleted}
-            filteredTodo={this.filteredTodo}
-            onClicked={this.onClicked}
-          />
-        </section>
+  return (
+    <section className="todoapp">
+      <Header addItem={addItem} />
+      <section className="main">
+        <TodoList
+          todos={data}
+          edit={data.edit}
+          onDone={onDone}
+          onDeleted={deleteItem}
+          saveChanges={saveChanges}
+          editItem={editItem}
+          btnFilter={btnFilter}
+        />
+        <Footer
+          counter={toDoCount}
+          buttons={buttons}
+          clearCompleted={clearCompleted}
+          filteredTodo={filteredTodo}
+          onClicked={onClicked}
+        />
       </section>
-    );
-  }
+    </section>
+  );
 }
 
 export default App;
